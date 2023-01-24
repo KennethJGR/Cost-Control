@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
 
-const NewBudget = ({ budget, setBudget }) => {
+const NewBudget = ({ budget, setBudget, setIsValidBudget }) => {
     const [msg, setMsg] = useState("");
 
     const handleBudget = (e) => {
@@ -11,6 +11,9 @@ const NewBudget = ({ budget, setBudget }) => {
             setMsg("Please, add a valid budget");
             return;
         }
+
+        setMsg("");
+        setIsValidBudget(true);
     };
 
     return (
@@ -20,12 +23,12 @@ const NewBudget = ({ budget, setBudget }) => {
                     <label htmlFor="">Define budget</label>
 
                     <input
-                        type="text"
+                        type="number"
                         className="nuevo-presupuesto"
                         placeholder="Add your budget"
                         value={budget}
                         onChange={(e) => {
-                            setBudget(e.target.value);
+                            setBudget(Number(e.target.value));
                         }}
                     />
                 </div>
