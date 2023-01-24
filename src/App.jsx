@@ -3,16 +3,18 @@ import Header from "./components/Header";
 import IconNewSpent from "./img/nuevo-gasto.svg";
 import Modal from "./components/Modal";
 
-
-
-
 function App() {
   const [budget, setBudget] = useState(0);
   const [isValidBudget, setIsValidBudget] = useState(false);
   const [modal, setModal] = useState(false);
+  const [animateModal, setAnimateModal] = useState(false);
 
   const handleNewSpent = () => {
     setModal(true);
+
+    setTimeout(() => {
+      setAnimateModal(true);
+    }, 5000);
   };
 
   return (
@@ -30,7 +32,7 @@ function App() {
         </div>
       )}
 
-      {modal && <p>"Desdemoal"</p>}
+      {modal && <Modal modal={modal} setModal={setModal} />}
     </div>
   );
 }
