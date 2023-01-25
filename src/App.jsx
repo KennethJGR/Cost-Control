@@ -8,13 +8,24 @@ function App() {
   const [isValidBudget, setIsValidBudget] = useState(false);
   const [modal, setModal] = useState(false);
   const [animateModal, setAnimateModal] = useState(false);
+  const [spent, setSpent] = useState([]);
 
   const handleNewSpent = () => {
     setModal(true);
 
     setTimeout(() => {
       setAnimateModal(true);
-    }, 5000);
+    }, 300);
+  };
+
+  const handleBudget = (expense) => {
+    setSpent([...spent, expense]);
+
+    setAnimateModal(false);
+
+    setTimeout(() => {
+      setModal(false);
+    }, 300);
   };
 
   return (
@@ -32,7 +43,14 @@ function App() {
         </div>
       )}
 
-      {modal && <Modal modal={modal} setModal={setModal} />}
+      {modal && (
+        <Modal
+          setModal={setModal}
+          animateModal={animateModal}
+          setAnimateModal={setAnimateModal}
+          handleBudget={handleBudget}
+        />
+      )}
     </div>
   );
 }
