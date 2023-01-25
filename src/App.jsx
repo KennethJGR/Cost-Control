@@ -8,8 +8,10 @@ import IconNewSpent from "./img/nuevo-gasto.svg";
 function App() {
   const [budget, setBudget] = useState("");
   const [isValidBudget, setIsValidBudget] = useState(false);
+
   const [modal, setModal] = useState(false);
   const [animateModal, setAnimateModal] = useState(false);
+
   const [spent, setSpent] = useState([]);
 
   const handleNewSpent = () => {
@@ -22,6 +24,7 @@ function App() {
 
   const handleBudget = (expense) => {
     expense.id = idGenerator();
+    expense.date = Date.now();
     setSpent([...spent, expense]);
 
     setAnimateModal(false);
