@@ -4,7 +4,7 @@ import CloseIcon from "../img/cerrar.svg";
 
 const Modal = ({ setModal, animateModal, setAnimateModal, handleBudget }) => {
     const [name, setName] = useState("");
-    const [amount, setAmount] = useState(0);
+    const [amount, setAmount] = useState("");
     const [category, setCategory] = useState("");
     const [msg, setMsg] = useState("");
 
@@ -67,9 +67,9 @@ const Modal = ({ setModal, animateModal, setAnimateModal, handleBudget }) => {
                     <input
                         id="amount"
                         type="number"
-                        placeholder="Add an amount"
                         value={amount}
                         onChange={(e) => setAmount(Number(e.target.value))}
+                        placeholder="Add an amount"
                     />
                 </div>
 

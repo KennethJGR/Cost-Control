@@ -5,7 +5,7 @@ import { idGenerator } from "./helpers";
 import IconNewSpent from "./img/nuevo-gasto.svg";
 
 function App() {
-  const [budget, setBudget] = useState(0);
+  const [budget, setBudget] = useState("");
   const [isValidBudget, setIsValidBudget] = useState(false);
   const [modal, setModal] = useState(false);
   const [animateModal, setAnimateModal] = useState(false);
@@ -40,9 +40,19 @@ function App() {
       />
 
       {isValidBudget && (
-        <div className="nuevo-gasto">
-          <img src={IconNewSpent} alt="IconNewSpent" onClick={handleNewSpent} />
-        </div>
+        <>
+        <main>
+
+          
+        </main>
+          <div className="nuevo-gasto">
+            <img
+              src={IconNewSpent}
+              alt="IconNewSpent"
+              onClick={handleNewSpent}
+            />
+          </div>
+        </>
       )}
 
       {modal && (
