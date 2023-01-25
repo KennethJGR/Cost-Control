@@ -1,7 +1,8 @@
 import { useState } from "react";
 import Header from "./components/Header";
-import IconNewSpent from "./img/nuevo-gasto.svg";
 import Modal from "./components/Modal";
+import { idGenerator } from "./helpers";
+import IconNewSpent from "./img/nuevo-gasto.svg";
 
 function App() {
   const [budget, setBudget] = useState(0);
@@ -19,6 +20,7 @@ function App() {
   };
 
   const handleBudget = (expense) => {
+    expense.id = idGenerator();
     setSpent([...spent, expense]);
 
     setAnimateModal(false);
