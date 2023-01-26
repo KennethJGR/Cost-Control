@@ -35,12 +35,13 @@ function App() {
   };
 
   return (
-    <div>
+    <div className={modal ? "fijar" : ""}>
       <Header
         budget={budget}
         setBudget={setBudget}
         isValidBudget={isValidBudget}
         setIsValidBudget={setIsValidBudget}
+        spent={spent}
       />
 
       {isValidBudget && (
