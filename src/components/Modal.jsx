@@ -8,6 +8,7 @@ const Modal = ({
     setAnimateModal,
     handleBudget,
     spentEdit,
+    setSpentEdit,
 }) => {
     const [name, setName] = useState("");
     const [amount, setAmount] = useState("");
@@ -39,11 +40,13 @@ const Modal = ({
         }
 
         handleBudget({ name, amount, category, id, date });
+        
+        setSpentEdit({});
     };
 
     const closeModal = () => {
         setAnimateModal(false);
-
+        setSpentEdit({});
         setTimeout(() => {
             setModal(false);
         }, 300);

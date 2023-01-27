@@ -36,7 +36,6 @@ function App() {
   };
 
   const handleBudget = (expense) => {
-    console.log(expense);
     if (expense.id) {
       const newSpent = spent.map((spent) =>
         spent.id === expense.id ? expense : spent
@@ -98,6 +97,7 @@ function App() {
           setAnimateModal={setAnimateModal}
           handleBudget={handleBudget}
           spentEdit={spentEdit}
+          setSpentEdit={setSpentEdit}
         />
       )}
     </div>

@@ -43,6 +43,7 @@ const Spent = ({ spents, setSpentEdit, deleteSpent }) => {
                 onClick={() => {
                     deleteSpent(id);
                 }}
+                destructive={true}
             >
                 Delete
             </SwipeAction>
