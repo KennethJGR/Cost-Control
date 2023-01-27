@@ -28,22 +28,32 @@ const dictionaryIcons = {
     subscriptions: iconSubscriptions,
 };
 
-const Spent = ({ spents }) => {
+const Spent = ({ spents, setSpentEdit, deleteSpent }) => {
     const { name, category, id, amount, date } = spents;
 
-    const leadingActions = () => {
-        console.log("leadingActions");
-    }
-    const trailingActions = () => {
-        console.log("trailingActions");
-    }
+    const leadingActions = () => (
+        <LeadingActions>
+            <SwipeAction onClick={() => setSpentEdit(spents)}>Edit</SwipeAction>
+        </LeadingActions>
+    );
 
+    const trailingActions = () => (
+        <TrailingActions>
+            <SwipeAction
+                onClick={() => {
+                    deleteSpent(id);
+                }}
+            >
+                Delete
+            </SwipeAction>
+        </TrailingActions>
+    );
 
     return (
         <SwipeableList>
             <SwipeableListItem
-                leadingActions={leadingActions}
-                trailingActions={trailingActions}
+                leadingActions={leadingActions()}
+                trailingActions={trailingActions()}
             >
                 <div className="gasto sombra">
                     <div className="contenido-gasto">

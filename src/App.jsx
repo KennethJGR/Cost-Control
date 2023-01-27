@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Header from "./components/Header";
 import Modal from "./components/Modal";
 import Expenses from "./components/Expenses";
@@ -14,8 +14,21 @@ function App() {
 
   const [spent, setSpent] = useState([]);
 
+  const [spentEdit, setSpentEdit] = useState({});
+
+  useEffect(() => {
+    if (Object.keys(spentEdit).length) {
+      setModal(true);
+
+      setTimeout(() => {
+        setAnimateModal(true);
+      }, 300);
+    }
+  }, [spentEdit]);
+
   const handleNewSpent = () => {
     setModal(true);
+    setSpentEdit({});
 
     setTimeout(() => {
       setAnimateModal(true);
@@ -23,15 +36,29 @@ function App() {
   };
 
   const handleBudget = (expense) => {
-    expense.id = idGenerator();
-    expense.date = Date.now();
-    setSpent([...spent, expense]);
+    console.log(expense);
+    if (expense.id) {
+      const newSpent = spent.map((spent) =>
+        spent.id === expense.id ? expense : spent
+      );
+
+      setSpent(newSpent);
+    } else {
+      expense.id = idGenerator();
+      expense.date = Date.now();
+      setSpent([...spent, expense]);
+    }
 
     setAnimateModal(false);
 
     setTimeout(() => {
       setModal(false);
     }, 300);
+  };
+
+  const deleteSpent = (id) => {
+    const newSpent = spent.filter((spent) => spent.id !== id);
+    setSpent(newSpent);
   };
 
   return (
@@ -47,7 +74,12 @@ function App() {
       {isValidBudget && (
         <>
           <main>
-            <Expenses spent={spent} setSpent={setSpent} />
+            <Expenses
+              spent={spent}
+              setSpent={setSpent}
+              setSpentEdit={setSpentEdit}
+              deleteSpent={deleteSpent}
+            />
           </main>
           <div className="nuevo-gasto">
             <img
@@ -65,6 +97,7 @@ function App() {
           animateModal={animateModal}
           setAnimateModal={setAnimateModal}
           handleBudget={handleBudget}
+          spentEdit={spentEdit}
         />
       )}
     </div>

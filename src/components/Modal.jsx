@@ -1,12 +1,30 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import React from "react";
 import CloseIcon from "../img/cerrar.svg";
 
-const Modal = ({ setModal, animateModal, setAnimateModal, handleBudget }) => {
+const Modal = ({
+    setModal,
+    animateModal,
+    setAnimateModal,
+    handleBudget,
+    spentEdit,
+}) => {
     const [name, setName] = useState("");
     const [amount, setAmount] = useState("");
     const [category, setCategory] = useState("");
     const [msg, setMsg] = useState("");
+    const [id, setId] = useState("");
+    const [date, setDate] = useState("");
+
+    useEffect(() => {
+        if (Object.keys(spentEdit).length) {
+            setName(spentEdit.name);
+            setAmount(spentEdit.amount);
+            setCategory(spentEdit.category);
+            setId(spentEdit.id);
+            setDate(spentEdit.date);
+        }
+    }, []);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -20,10 +38,7 @@ const Modal = ({ setModal, animateModal, setAnimateModal, handleBudget }) => {
             return;
         }
 
-
-        handleBudget({ name, amount, category })
-
-
+        handleBudget({ name, amount, category, id, date });
     };
 
     const closeModal = () => {
@@ -45,7 +60,10 @@ const Modal = ({ setModal, animateModal, setAnimateModal, handleBudget }) => {
                 className={`formulario ${animateModal ? "animar" : "cerrar"}`}
                 onSubmit={handleSubmit}
             >
-                <legend> New Spent </legend>
+                <legend>
+                    {" "}
+                    {Object.keys(spentEdit).length ? "Editing Spent" : "New Spent"}{" "}
+                </legend>
 
                 {msg ? <p className="alerta error">{msg}</p> : null}
 
@@ -92,7 +110,10 @@ const Modal = ({ setModal, animateModal, setAnimateModal, handleBudget }) => {
                         <option value="subscriptions">Subscriptions</option>
                     </select>
                 </div>
-                <input type="submit" value="Add Spent" />
+                <input
+                    type="submit"
+                    value={Object.keys(spentEdit).length ? "Save Changes" : "Add Spent"}
+                />
             </form>
         </div>
     );
