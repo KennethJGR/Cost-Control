@@ -3,7 +3,13 @@ import { useState, useEffect } from "react";
 import { buildStyles, CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 
-const BudgetControl = ({ spent, budget }) => {
+const BudgetControl = ({
+    spent,
+    setSpent,
+    budget,
+    setBudget,
+    setIsValidBudget,
+}) => {
     const [available, setAvailable] = useState(0);
     const [spend, setSpend] = useState(0);
     const [percentage, setPercentage] = useState(0);
@@ -32,14 +38,26 @@ const BudgetControl = ({ spent, budget }) => {
         });
     };
 
+    const handleReset = () => {
+        const resetBudget = window.confirm(
+            "Are you sure you want to reset the app?"
+        );
+
+        if (resetBudget) {
+            setBudget(0);
+            setSpent([]);
+            setIsValidBudget(false);
+        }
+    };
+
     return (
         <div className="contenedor-presupuesto contenedor sombra dos-columnas">
             <div>
                 <CircularProgressbar
                     styles={buildStyles({
-                        pathColor: "#3b82f6",
+                        pathColor: percentage > 100 ? "#dc2626" : "#3b82f6",
                         trailColor: "#f5f5f5",
-                        textColor: "#3b82f6",
+                        textColor: percentage > 100 ? "#dc2626" : "#3b82f6",
                     })}
                     value={percentage}
                     text={`${percentage}%`}
@@ -47,11 +65,15 @@ const BudgetControl = ({ spent, budget }) => {
             </div>
 
             <div className="contenido-presupuesto">
+                <button className="reset-app" type="button" onClick={handleReset}>
+                    Reset App
+                </button>
+
                 <p>
                     <span>Budget: </span>
                     {formatBudget(budget)}
                 </p>
-                <p>
+                <p className={`${available < 0 ? "negativo" : ""}`}>
                     <span>Available: </span>
                     {formatBudget(available)}
                 </p>

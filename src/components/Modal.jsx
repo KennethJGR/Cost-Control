@@ -8,7 +8,7 @@ const Modal = ({
     setAnimateModal,
     handleBudget,
     spentEdit,
-    setSpentEdit,
+    setSpentEdit,setFilter
 }) => {
     const [name, setName] = useState("");
     const [amount, setAmount] = useState("");
@@ -116,6 +116,7 @@ const Modal = ({
                 <input
                     type="submit"
                     value={Object.keys(spentEdit).length ? "Save Changes" : "Add Spent"}
+                    onClick={() => setFilter("")}
                 />
             </form>
         </div>
